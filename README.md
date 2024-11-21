@@ -4,7 +4,7 @@
 
 ## Overview
 
-DASH (Distributed Address Shortening Hub) is a decentralized application designed to shorten URLs. It leverages blockchain technology to ensure the immutability and security of the shortened links.
+DASH - Distributed Address Shortening Hub is a decentralized application designed to shorten URLs. It leverages Cloudflare network to ensure fast and reliable short links.
 
 ## Features
 
