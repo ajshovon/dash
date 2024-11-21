@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "a2ed7350-bfe5-4e50-87e7-c2cebc2f4798",
+    "name": "DASH",
+    "description": "DASH (Distributed Address Shortening Hub) is a decentralized application designed to shorten URLs. It leverages blockchain technology to ensure the immutability and security of the shortened links",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36588845"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/auth/login",
+              "host": ["{{url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Links",
+          "item": [
+            {
+              "name": "New Short Link",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczMTIxMDYwMH0.yO-yeeLxS-lc5fGmE6IqvcTt2XBpLNGYmHuZ7r-u4SE",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"destination\": \"https://shovon.me\",\r\n    \"shortLink\": \"test\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/admin/new",
+                  "host": ["{{url}}"],
+                  "path": ["admin", "new"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Shot Link",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"destination\": \"https://shovon.me\",\r\n    \"shortLink\": \"test\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/admin/links",
+                  "host": ["{{url}}"],
+                  "path": ["admin", "links"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Link",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"destination\": \"https://shovon.me\",\r\n    \"shortLink\": \"test\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/admin/link/4",
+                  "host": ["{{url}}"],
+                  "path": ["admin", "link", "4"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Link",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"destination\": \"https://shovon.me\",\r\n    \"shortLink\": \"test55\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/admin/link/11",
+                  "host": ["{{url}}"],
+                  "path": ["admin", "link", "11"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Link",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/admin/link/11",
+                  "host": ["{{url}}"],
+                  "path": ["admin", "link", "11"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Analytics",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/admin/analytics?startDate=11-02-2024&endDate=11-18-2024",
+              "host": ["{{url}}"],
+              "path": ["admin", "analytics"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "11-02-2024"
+                },
+                {
+                  "key": "endDate",
+                  "value": "11-18-2024"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"oldPassword\": \"password\",\r\n    \"confirmNewPassword\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/admin/change-password",
+              "host": ["{{url}}"],
+              "path": ["admin", "change-password"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Short Link",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/test",
+          "host": ["{{url}}"],
+          "path": ["test"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "http://127.0.0.1:8787/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczMTc0NjE1NH0.JWWa3g0RfLuUED69EFvaWXWsMHKKDMJDNDUnWflPz9M",
+      "type": "string"
+    }
+  ]
+}
