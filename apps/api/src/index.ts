@@ -37,7 +37,7 @@ app.get('/:id', async (c) => {
   const kvData = await kv.get(id);
   if (kvData) {
     console.log('Served from KV');
-    await addStat(c, id);
+    c.executionCtx.waitUntil(addStat(c, link.slug));
     return c.redirect(kvData);
   }
 
@@ -51,9 +51,9 @@ app.get('/:id', async (c) => {
     throw new HTTPException(404);
   } else {
     console.log('Served from database');
-    await kv.put(id, link.dest);
+    await kv.put(id, link.dest, { expirationTtl: 60 * 60 * 24 * 30 });
 
-    await addStat(c, link.slug);
+    c.executionCtx.waitUntil(addStat(c, link.slug));
 
     return c.redirect(link.dest);
   }
