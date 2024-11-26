@@ -2,6 +2,17 @@
 
 ## Distributed Address Shortening Hub
 
+
+![Demo Build](https://github.com/ajshovon/dash/actions/workflows/deploy.yml/badge.svg?branch=demo) 
+
+## [Live Dashboard Demo ⚡](https://dash-demo.shovon.me/login)
+
+Username: `admin`
+
+Password: `admin`
+
+> NB: Performing post, put, delete methods in the demo will not reflect in the database.
+
 ## Overview
 
 DASH - Distributed Address Shortening Hub is a decentralized application designed to shorten URLs. It leverages Cloudflare network to ensure fast and reliable short links.
