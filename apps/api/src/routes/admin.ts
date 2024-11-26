@@ -34,11 +34,11 @@ const UpdateLinkSchema = NewLinkSchema.partial();
 // New link route
 admin.post('/new', zValidator('json', NewLinkSchema), async (c) => {
   const { destination, shortLink } = c.req.valid('json');
-  const client = new Pool({ connectionString: c.env.NEON_DATABASE_URL });
-  const db = drizzle(client, { schema });
+  // const client = new Pool({ connectionString: c.env.NEON_DATABASE_URL });
+  // const db = drizzle(client, { schema });
   const testLink = await findByShortLink(c, shortLink);
   if (testLink) throw new HTTPException(409);
-  await db.insert(schema.links).values({ dest: destination, slug: shortLink }).execute();
+  // await db.insert(schema.links).values({ dest: destination, slug: shortLink }).execute();
   return c.json({ status: 'Created Successfully' }, 201);
 });
 
@@ -168,8 +168,8 @@ admin.patch('/change-password', zValidator('json', changePasswordSchema), async 
   if (!user) throw new HTTPException(404);
   const isMatch = await verifyPassword(user.hash, oldPassword);
   if (!isMatch) throw new HTTPException(401);
-  const newHash = await hashPassword(confirmNewPassword);
-  await db.update(schema.users).set({ hash: newHash }).where(eq(schema.users.id, 1)).execute();
+  // const newHash = await hashPassword(confirmNewPassword);
+  // await db.update(schema.users).set({ hash: newHash }).where(eq(schema.users.id, 1)).execute();
   return c.json({ status: 'Password Changed Successfully' });
 });
 
@@ -190,29 +190,29 @@ admin.get('/link/:id', async (c) => {
 
 // Update a link route
 admin.patch('/link/:id', zValidator('json', UpdateLinkSchema), async (c) => {
-  const { destination, shortLink } = c.req.valid('json');
+  // const { destination, shortLink } = c.req.valid('json');
   const id = c.req.param('id');
-  const client = new Pool({ connectionString: c.env.NEON_DATABASE_URL });
-  const db = drizzle(client, { schema });
-  const kv = env(c).KV;
+  // const client = new Pool({ connectionString: c.env.NEON_DATABASE_URL });
+  // const db = drizzle(client, { schema });
+  // const kv = env(c).KV;
   const targetLink = await findById(c, +id);
   if (!targetLink) throw new HTTPException(404);
-  await kv.delete(targetLink.slug);
-  await db.update(schema.links).set({ dest: destination, slug: shortLink }).where(eq(schema.links.id, +id)).execute();
+  // await kv.delete(targetLink.slug);
+  // await db.update(schema.links).set({ dest: destination, slug: shortLink }).where(eq(schema.links.id, +id)).execute();
   return c.json({ status: 'Updated Successfully' });
 });
 
 // Delete a link route
 admin.delete('/link/:id', async (c) => {
   const id = c.req.param('id');
-  const client = new Pool({ connectionString: c.env.NEON_DATABASE_URL });
-  const db = drizzle(client, { schema });
+  // const client = new Pool({ connectionString: c.env.NEON_DATABASE_URL });
+  // const db = drizzle(client, { schema });
   const kv = env(c).KV;
   const targetLink = await findById(c, +id);
   if (!targetLink) throw new HTTPException(404);
   await kv.delete(targetLink.slug);
-  await db.delete(schema.stats).where(eq(schema.stats.linkId, targetLink.slug)).execute();
-  await db.delete(schema.links).where(eq(schema.links.id, +id)).execute();
+  // await db.delete(schema.stats).where(eq(schema.stats.linkId, targetLink.slug)).execute();
+  // await db.delete(schema.links).where(eq(schema.links.id, +id)).execute();
   return c.json({ status: 'Deleted Successfully' });
 });
 
