@@ -9,18 +9,15 @@ import auth3Light from '@/public/images/auth3-light.png';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import { PiUserDuotone } from 'react-icons/pi';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function Login() {
   const { loginUser } = useAuth();
   const [getResponse, setGetResponse] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [passwordType, setPasswordType] = useState('password');
-
   const togglePasswordType = () => {
     if (passwordType === 'text') {
       setPasswordType('password');
@@ -58,35 +55,6 @@ export default function Login() {
     }
     setGetResponse(false);
   };
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setMounted(true);
-    }
-  }, []);
-
-  if (mounted) {
-    toast(
-      <div className="space-y-1 w-full">
-        <p className="text-l font-bold flex items-center gap-2">
-          <PiUserDuotone className="size-4" /> Demo Login Credentials
-        </p>
-
-        <p className="text-xs dark:text-gray-200 ml-6">
-          Username: <code>admin</code>
-        </p>
-        <p className="text-xs dark:text-gray-200 ml-6">
-          Password: <code>admin</code>
-        </p>
-        <p className="text-xs tracking-tighter font-light antialiased text-center w-full ">Note: The demo does not make any changes to the database.</p>
-      </div>,
-      {
-        position: 'bottom-center',
-        duration: Infinity,
-      }
-    );
-  }
-
   return (
     <div className="min-h-svh flex justify-center items-center relative overflow-hidden">
       <Image src={auth3Dark} alt="background image" className="absolute top-0 left-0 w-full h-full light:hidden" />
@@ -115,17 +83,6 @@ export default function Login() {
 
           <div className="mt-5 2xl:text-3xl text-2xl font-bold text-accent-900">Hey, Hello 👋</div>
           <div className="2xl:text-lg text-base text-accent-600 mt-2 leading-6">Enter your DASH credentials here...</div>
-          {/* Demo Credentials Alert*/}
-          {/* <div className="p-4 mb-4 rounded-xl text-sm  bg-amber-50" role="alert">
-            <h3 className="text-amber-500 font-normal">
-              <span className="font-semibold mr-1">Demo Credentials</span>
-            </h3>
-            <p className="mt-1 text-gray-600">
-              Username: <code>admin</code> Password: <code>admin</code>
-            </p>
-            <p className="mt-1 text-gray-600">NB: Performing post, put, delete methods in the demo will not reflect in the database.</p>
-          </div> */}
-
           <form onSubmit={handleSubmit} className="space-y-12">
             <div className="2xl:my-7 my-8 space-y-4">
               <div>
