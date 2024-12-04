@@ -14,9 +14,8 @@ import { PiUserDuotone } from 'react-icons/pi';
 import { toast } from 'sonner';
 
 export default function Login() {
-  const { loginUser } = useAuth();
+  const { loginUser, token } = useAuth();
   const [getResponse, setGetResponse] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [passwordType, setPasswordType] = useState('password');
@@ -45,6 +44,7 @@ export default function Login() {
     setGetResponse(true);
     try {
       await loginUser(credentials);
+      toast.dismiss('demo-login');
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.message === 'Invalid credentials') {
@@ -60,32 +60,33 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setMounted(true);
+    if (!token && typeof window !== 'undefined') {
+      setTimeout(() => {
+        toast(
+          <div className="space-y-1 w-full">
+            <p className="text-l font-bold flex items-center gap-2">
+              <PiUserDuotone className="size-4" /> Demo Login Credentials
+            </p>
+            <p className="text-xs dark:text-gray-200 ml-6">
+              Username: <code>admin</code>
+            </p>
+            <p className="text-xs dark:text-gray-200 ml-6">
+              Password: <code>admin</code>
+            </p>
+            <p className="text-xs tracking-tight font-light antialiased text-center w-full">Note: The demo does not make any changes to the database.</p>
+          </div>,
+          {
+            duration: Infinity,
+            closeButton: true,
+            id: 'demo-login',
+            classNames: {
+              closeButton: 'right-1 top-4 left-auto text-blue-500 !bg-slate-400/20 border-none',
+            },
+          }
+        );
+      }, 500);
     }
-  }, []);
-
-  if (mounted) {
-    toast(
-      <div className="space-y-1 w-full">
-        <p className="text-l font-bold flex items-center gap-2">
-          <PiUserDuotone className="size-4" /> Demo Login Credentials
-        </p>
-
-        <p className="text-xs dark:text-gray-200 ml-6">
-          Username: <code>admin</code>
-        </p>
-        <p className="text-xs dark:text-gray-200 ml-6">
-          Password: <code>admin</code>
-        </p>
-        <p className="text-xs tracking-tighter font-light antialiased text-center w-full ">Note: The demo does not make any changes to the database.</p>
-      </div>,
-      {
-        position: 'bottom-center',
-        duration: Infinity,
-      }
-    );
-  }
+  }, [token]);
 
   return (
     <div className="min-h-svh flex justify-center items-center relative overflow-hidden">
@@ -115,27 +116,17 @@ export default function Login() {
 
           <div className="mt-5 2xl:text-3xl text-2xl font-bold text-accent-900">Hey, Hello 👋</div>
           <div className="2xl:text-lg text-base text-accent-600 mt-2 leading-6">Enter your DASH credentials here...</div>
-          {/* Demo Credentials Alert*/}
-          {/* <div className="p-4 mb-4 rounded-xl text-sm  bg-amber-50" role="alert">
-            <h3 className="text-amber-500 font-normal">
-              <span className="font-semibold mr-1">Demo Credentials</span>
-            </h3>
-            <p className="mt-1 text-gray-600">
-              Username: <code>admin</code> Password: <code>admin</code>
-            </p>
-            <p className="mt-1 text-gray-600">NB: Performing post, put, delete methods in the demo will not reflect in the database.</p>
-          </div> */}
 
           <form onSubmit={handleSubmit} className="space-y-12">
             <div className="2xl:my-7 my-8 space-y-4">
               <div>
                 <Label>Username</Label>
-                <Input type="text" name="username" placeholder="Write here.." required autoFocus ref={usernameRef} className="mt-2" />
+                <Input type="text" name="username" defaultValue="admin" placeholder="Write here.." required autoFocus ref={usernameRef} className="mt-2" />
               </div>
               <div>
                 <Label>Password</Label>
                 <div className="flex items-center mt-2 border border-default rounded-lg">
-                  <Input type={passwordType === 'password' ? 'password' : 'text'} name="password" placeholder="Write here.." required ref={passwordRef} className="border-none" />
+                  <Input type={passwordType === 'password' ? 'password' : 'text'} name="password" defaultValue="admin" placeholder="Write here.." required ref={passwordRef} className="border-none" />
                   <button type="button" className="h-10 px-3" onClick={togglePasswordType}>
                     {passwordType === 'password' ? <EyeOff className="size-4 text-accent-850" /> : <Eye className="size-4 text-accent-850" />}
                   </button>
