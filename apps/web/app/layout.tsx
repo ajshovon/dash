@@ -1,10 +1,10 @@
 import { AuthProvider } from '@/providers/authContext';
+import SonnerToast from '@/providers/SonnerToast';
 import { SiteThemeProviders } from '@/providers/theme.provider';
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { Inter } from 'next/font/google';
-import { Toaster } from 'sonner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,7 +36,7 @@ export default function RootLayout({
           <SiteThemeProviders>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               {children}
-              <Toaster />
+              <SonnerToast />
             </ThemeProvider>
           </SiteThemeProviders>
         </AuthProvider>
